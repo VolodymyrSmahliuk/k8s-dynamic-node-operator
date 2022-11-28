@@ -1,0 +1,19 @@
+@startuml
+hide footbox
+title Звʼязок із вузлом втрачено
+
+"Втрачений робочий вузол" -> Kubernetes: Повідомлення про стан
+Kubernetes -> "etcd (база станів)": Оновити інформацію про вузол
+hnote over "etcd (база станів)" #00FF00: Ready
+hnote over "Втрачений робочий вузол" #FF0000: Сервер втрачено
+"Втрачений робочий вузол" x-> "Kubernetes": Повідомлення про стан
+hnote over Kubernetes : Очікування відповіді
+Kubernetes --> Kubernetes: 40 секунд
+Kubernetes -> "etcd (база станів)": Оновити інформацію про вузол
+hnote over "etcd (база станів)" #FFFF00: Unknown
+hnote over Kubernetes : Очікування відповіді
+Kubernetes --> Kubernetes: 5 хвилин
+Kubernetes -> "etcd (база станів)": Оновити інформацію про вузол
+hnote over "etcd (база станів)" #FF0000: Removed
+Kubernetes <- "etcd (база станів)": Вузол видалено з бази
+@enduml
