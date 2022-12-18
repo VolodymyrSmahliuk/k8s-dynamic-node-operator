@@ -65,7 +65,8 @@ define_os() {
         OS=$(uname -s)
         VER=$(uname -r)
     fi
-    echo "$OS" "$VER"
+    # echo "$OS" "$VER"
+    echo "$OS"
 }
 
 # ----------------------------
